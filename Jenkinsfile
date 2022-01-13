@@ -22,7 +22,6 @@ pipeline {
             bat 'set OUT=jmeter.save.saveservice.output_format'
             bat 'set JMX=DVLA_Lookup.jmx'
             bat 'set JTL=DVLA_Lookup.report.jtl'
-            bat 'set'
             bat 'C:\\apache-jmeter-5.4\\bin\\jmeter -j jmeter.save.saveservice.output_format=xml -n -t DVLA_Lookup.jmx -l DVLA_Lookup.report.jtl'            
             //bat 'jmeter -n –t ${WORKSPACE}\\ -l testresults.jtl'
       }
