@@ -352,7 +352,7 @@ log.info(&quot;***************&quot;);</stringProp>
           <hashTree/>
         </hashTree>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-          <stringProp name="filename">C:/CSV Test Data/vehicles.txt</stringProp>
+          <stringProp name="filename">vehicles.txt</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="variableNames">regNo,make</stringProp>
           <boolProp name="ignoreFirstLine">true</boolProp>
