@@ -2,7 +2,7 @@ pipeline {
    agent any
     options {
       buildDiscarder(logRotator(numToKeepStr:'30'))
-      timeout(time: 10, unit: 'MINUTES')
+      timeout(time: 2, unit: 'MINUTES')
       timestamps()
       skipDefaultCheckout true
     }   
@@ -23,13 +23,14 @@ pipeline {
             bat 'set OUT=jmeter.save.saveservice.output_format'
             bat 'set JMX=DVLA_Lookup.jmx'
             bat 'set JTL=DVLA_Lookup.report.jtl'
-            bat 'C:\\apache-jmeter-5.4\\bin\\jmeter -j jmeter.save.saveservice.output_format=csv -n -t DVLA_Lookup.jmx -l DVLA_Lookup.report.jtl'            
+            bat 'C:\\apache-jmeter-5.4\\bin\\jmeter -n -t DVLA_Lookup.jmx -l DVLA_Lookup.report.jtl'            
             //bat 'jmeter -n –t ${WORKSPACE}\\ -l testresults.jtl'
       }
       }
-      stage('Grab Report output') {
+      stage('Generate Report output') {
           steps {
-            echo 'Grab Report'
+            echo 'Generate Report'
+            bat 'C:\\apache-jmeter-5.4\\bin\\jmeter -g  DVLA_Lookup.report.jtl -o  HTML'
       }
       }      
    }
@@ -37,7 +38,7 @@ pipeline {
     {
         success 
         {
-            archiveArtifacts artifacts: "*.jtl", onlyIfSuccessful: true
+            archiveArtifacts artifacts: "HTML\\index.html", onlyIfSuccessful: true
             powershell('write-host "Archived"')
         }
     }      
