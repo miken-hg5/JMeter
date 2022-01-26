@@ -2,7 +2,7 @@ pipeline {
    agent any
     options {
       buildDiscarder(logRotator(numToKeepStr:'30'))
-      timeout(time: 2, unit: 'MINUTES')
+      timeout(time: 10, unit: 'MINUTES')
       timestamps()
       skipDefaultCheckout true
     }   
@@ -38,7 +38,15 @@ pipeline {
     {
         success 
         {
-            archiveArtifacts artifacts: "HTML\\index.html", onlyIfSuccessful: true
+            //archiveArtifacts artifacts: "HTML\\index.html", onlyIfSuccessful: true
+            publishHTML target: [
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'HTML',
+              reportFiles: 'index.html',
+              reportName: 'JMeter_Test_Report'
+            ]            
             powershell('write-host "Archived"')
         }
     }      
